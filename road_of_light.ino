@@ -1,12 +1,12 @@
 #include <Adafruit_NeoPixel.h>
 
-const int BUTTON_PIN_01 = 1;
+const int BUTTON_PIN_01 = 0;
 const int NEOPIXEL_PIN_01 = 5;
 const int NEOPIXEL_LED_NUM = 10;
 
 /**
  * Button.
- * Button must emit event when pushed.
+ * 押されたかを一定間隔でチェックするやつ。
  */
 class Button {
 private:
@@ -133,6 +133,7 @@ public:
               break;
             }
           }
+
           // もう終わったやつ
           if ( i > currentLEDIdx ) {
             switch(currentMode) {
@@ -176,32 +177,41 @@ public:
               break;
             default:
               break;
-          }
+            }
           controller.setPixelColor( i, current_R, current_G, current_B );
           controller.show();
           }
         }
   
         if ( currentMode == 0 && current_R >= FULL_R && current_G >= FULL_G && current_B >= FULL_B ) {
-            currentLEDIdx = currentLEDIdx == pixelNum - 1 ? 0 : currentLEDIdx + 1;
-            if ( currentLEDIdx == pixelNum - 1 ) {
-              SwitchMode();
-            }
+          currentLEDIdx = currentLEDIdx == pixelNum - 1 ? 0 : currentLEDIdx + 1;
+          if ( currentLEDIdx == pixelNum - 1 ) {
+            SwitchMode();
           }
         }
-        controller.show();
       }
+      controller.show();
     }
-  };
+  }
+
+  boolean Processing () {
+    return flashing == true;
+  }
+};
+
 
 Button button_01 ( BUTTON_PIN_01 );
 NeoPixelFlasher neoPixel_01 ( NEOPIXEL_PIN_01, NEOPIXEL_LED_NUM );
 
 void setup () {
+  // serial setting
+  Serial.begin(115200);
+  Serial.println("start");
+
 }
 
 void loop () {
-  if ( button_01.IsPushed() ) {
+  if ( button_01.IsPushed() && !neoPixel_01.Processing() ) {
     neoPixel_01.Flash();
   }
 
