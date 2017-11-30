@@ -1,4 +1,4 @@
-# ROAD OF LIGHT ~闇を照らす暖かな光~
+# ROAD OF LIGHT ～闇を照らす暖かな光～
 
 ## なにそれ
 
