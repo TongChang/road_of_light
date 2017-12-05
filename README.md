@@ -9,9 +9,12 @@
 
 ## 必要なもの(物理)
 
+* 電源(単三電池3本で動いた)
 * [ESPr® Developer（ESP-WROOM-02開発ボード） - スイッチサイエンス](https://www.switch-science.com/catalog/2500/)
 * タクトボタン(a接点のもの)
 * NeoPixel RGB
+* いい感じのLED
+  * ボタンといい感じのLEDはダイソーのプッシュライトを使いました
 
 ## でぃぺんでんしーず
 
